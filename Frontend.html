@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adaptive Learning Platform</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin:0; background:#f1f3f6; }
+    header { background:#3b3e6e; color:#fff; padding:18px 30px; }
+    nav ul { display:flex; list-style:none; padding:0; margin:0; }
+    nav li { margin-right:32px; cursor:pointer; transition:color .3s; }
+    nav li:hover, nav li.active { color:#ffd86a; }
+    main { max-width:1100px; margin:32px auto 10px; background:#fff; border-radius:12px; padding:36px; min-height:480px; box-shadow:0 2px 14px rgba(70,70,100,.07);}
+    h2 { margin-top:0; color:#3b3e6e; }
+    .dashboard { display:flex; gap:32px; flex-wrap:wrap; }
+    .dash-card { background:#f7f9fa; border-radius:8px; box-shadow:0 1px 6px rgba(70,70,100,.07); padding:18px 22px; width:220px; }
+    /* File Upload Section */
+    .upload-box { border:2px dashed #cacfd9; padding:24px; border-radius:8px; text-align:center; margin:24px 0; }
+    input[type=file] { display:none;}
+    label.upload-btn { background:#3b3e6e; color:#fff; padding:10px 26px; border-radius:6px; cursor:pointer;}
+    /* Tables */
+    table { border-collapse:collapse; width:100%; margin-top:24px;}
+    th, td { border:1px solid #eee; padding:12px; text-align:left;}
+    th { background:#e6eaff; color:#2b2e59;}
+    /* Quiz Section */
+    .quiz-box { background:#f6edff; border-radius:6px; padding:24px; margin-top:24px;}
+    .quiz-q { margin:14px 0;}
+    .feedback { color:#307f3d; font-weight:bold;}
+    /* Responsive for mobile */
+    @media (max-width:900px) {
+      main, header{padding:18px;}
+      .dashboard{flex-direction:column;}
+      .dash-card{width:auto;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="active" onclick="showSection('dashboard')">Dashboard</li>
+        <li onclick="showSection('upload')">Upload Materials</li>
+        <li onclick="showSection('quiz')">Assessments</li>
+        <li onclick="showSection('recommend')">Study Recommendations</li>
+        <li onclick="showSection('profile')">Profile</li>
+      </ul>
+    </nav>
+  </header>
+  <main id="dashboard">
+    <h2>Progress Analytics</h2>
+    <div class="dashboard">
+      <div class="dash-card">
+        <strong>Study Time</strong>
+        <div id="studyTime">2h 35m/week</div>
+      </div>
+      <div class="dash-card">
+        <strong>Quiz Score</strong>
+        <div id="quizScore">82%</div>
+      </div>
+      <div class="dash-card">
+        <strong>Topic Mastery</strong>
+        <div id="topicMastery">Algebra: 70%, Biology: 90%</div>
+      </div>
+      <div class="dash-card">
+        <strong>Learning Trends</strong>
+        <div id="learningTrends">Improving!</div>
+      </div>
+    </div>
+  </main>
+  <main id="upload" style="display:none;">
+    <h2>Document Processing</h2>
+    <div class="upload-box">
+      <label for="fileUpload" class="upload-btn">Upload PDF/DOCX/PPTX</label>
+      <input type="file" id="fileUpload" accept=".pdf,.docx,.pptx">
+      <div id="uploadedFileInfo"></div>
+    </div>
+    <div id="extractedContent">
+      <!-- Simulated extraction output -->
+      <h3>Key Concepts</h3>
+      <ul>
+        <li>Adaptive Algorithms</li>
+        <li>Performance Analytics</li>
+        <li>Automated Assessments</li>
+      </ul>
+      <h3>Study Notes</h3>
+      <ul>
+        <li>AI customizes learning paths to student needs</li>
+        <li>Progress tracked by quizzes and topic mastery</li>
+      </ul>
+      <h3>Flashcards</h3>
+      <ul>
+        <li><strong>Q:</strong> What does an adaptive platform do?<br><strong>A:</strong> Personalizes study content and difficulty.</li>
+      </ul>
+    </div>
+    <table>
+      <tr><th>Material</th><th>Time</th><th>Cost</th><th>Skill Level</th></tr>
+      <tr><td>Intro to ML PDF</td><td>40min</td><td>Free</td><td>Beginner</td></tr>
+      <tr><td>JS Course PPT</td><td>1h</td><td>$20</td><td>Intermediate</td></tr>
+    </table>
+  </main>
+  <main id="quiz" style="display:none;">
+    <h2>Adaptive Assessments</h2>
+    <div class="quiz-box">
+      <div class="quiz-q">
+        <strong>1. True/False:</strong> Adaptive platforms analyze quiz responses to adjust difficulty. 
+        <br>
+        <button onclick="showFeedback(true)">True</button>
+        <button onclick="showFeedback(false)">False</button>
+      </div>
+      <div class="quiz-q">
+        <strong>2. MCQ:</strong> Which feature helps visualize progress?<br>
+        <label><input type="radio" name="q2"> Progress Analytics</label>
+        <label><input type="radio" name="q2"> File Upload</label>
+        <label><input type="radio" name="q2"> Study Recommendations</label>
+      </div>
+      <div class="quiz-q">
+        <strong>3. Short Answer:</strong> What is one benefit of AI-driven study paths?
+        <br>
+        <input type="text" id="shortAnswer" placeholder="Type your answer..">
+        <button onclick="showFeedback('ai_benefit')">Submit</button>
+      </div>
+      <div class="feedback" id="quizFeedback"></div>
+    </div>
+  </main>
+  <main id="recommend" style="display:none;">
+    <h2>AI-Driven Study Recommendations</h2>
+    <ul>
+      <li>Practice algebra for 15min to boost mastery.</li>
+      <li>Review flashcards before next quiz attempt.</li>
+      <li>Schedule biology revision for Monday.</li>
+      <li>Try interactive coding exercises for deeper JS practice.</li>
+    </ul>
+    <button onclick="alert('Report exported!')">Export Progress Report</button>
+  </main>
+  <main id="profile" style="display:none;">
+    <h2>User Profile & Settings</h2>
+    <p>Name: Alex Learner</p>
+    <p>Email: alex@learn.ai</p>
+    <button onclick="alert('Profile updated!')">Update Profile</button>
+  </main>
+  <script>
+    function showSection(id){
+      document.querySelectorAll('main').forEach(sec=>sec.style.display='none');
+      document.getElementById(id).style.display='block';
+      document.querySelectorAll('nav li').forEach(li=>li.classList.remove('active'));
+      document.querySelectorAll('nav li')[['dashboard','upload','quiz','recommend','profile'].indexOf(id)].classList.add('active');
+    }
+    document.getElementById('fileUpload').addEventListener('change',function(e){
+      document.getElementById('uploadedFileInfo').innerText = "Uploaded: " + (e.target.files? e.target.files.name : "No file");
+    });
+    function showFeedback(answer){
+      let fb=document.getElementById('quizFeedback');
+      if(answer===true) fb.innerText="Correct! Well done.";
+      else if(answer==='ai_benefit') fb.innerText="Great! Personalized study increases retention.";
+      else fb.innerText="Try again!";
+      setTimeout(()=>{fb.innerText="";},2000);
+    }
+  </script>
+</body>
+</html>
